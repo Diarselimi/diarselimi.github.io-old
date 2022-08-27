@@ -17,9 +17,8 @@ export default function Home(props) {
           <div className="md:container md:mx-auto">
           <div className="">
             <div className="flex flex-wrap pt-12 -mx-6">
-                {posts.map(post =>
-                    (
-                    <ArticlePreview post={post.data} />
+                {posts.map((post, key) => (
+                    <ArticlePreview post={post.data} key={key} />
                 ))}
             </div>
           </div>
