@@ -15,13 +15,11 @@ export default function Home(props) {
               </p>
           </div>
           <div className="md:container md:mx-auto">
-          <div className="">
             <div className="flex flex-wrap pt-12 -mx-6">
-                {posts.map((post, key) => (
-                    <ArticlePreview post={post.data} key={key} />
+                {posts.map((post, index) => (
+                    <ArticlePreview post={post} slug={post.slug} key={post.key} />
                 ))}
             </div>
-          </div>
           </div>
         </>
     )
@@ -30,13 +28,14 @@ export default function Home(props) {
 export async function getStaticProps() {
     const files = fs.readdirSync("posts");
 
-    const posts = files.map((file) => {
+    const posts = files.map((file, key) => {
         const slug = file.replace(".md", "");
         const content = fs.readFileSync(`posts/${file}`, "utf-8");
         const parsedContent = matter(content);
 
         const {data} = parsedContent;
         return {
+            key,
             slug,
             data
         }
