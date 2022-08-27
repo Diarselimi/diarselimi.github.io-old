@@ -2,7 +2,7 @@
 function ArticlePreview(props) {
     const {post, key} = props;
     return (
-        <div id={"post-"+key} className="m-5 px-5 pt-10 pb-8 shadow-xl ring-1 ring-gray-200 sm:max-w-lg sm:rounded-lg">
+        <div key={key} className="m-5 px-5 pt-10 pb-8 shadow-xl ring-1 ring-gray-200 sm:max-w-lg sm:rounded-lg">
             <div className="mx-auto max-w-md">
                 <div className="tex-base font-semibold">
                     <p className="text-gray-900">{post.title}</p>
