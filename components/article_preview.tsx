@@ -2,8 +2,8 @@
 function ArticlePreview(props) {
     const {post, slug} = props;
     return (
-        <div className="px-5 pt-10 pb-5 shadow-xl ring-1 ring-gray-300 sm:max-w-lg rounded-lg">
-            <div className="mx-auto max-w-md">
+        <div className="px-5 m-5 pt-10 pb-5 shadow-xl ring-1 ring-gray-300 rounded-lg">
+            <div className="mx-auto">
                 <div className="tex-base font-semibold">
                     <p className="text-gray-900">{post.data.title}</p>
                 </div>

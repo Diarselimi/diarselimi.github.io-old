@@ -7,7 +7,7 @@ export default function Home(props) {
     const {posts} = props;
     return (
         <>
-          <div className="mt-20 container mx-auto " >
+          <div className="mt-20 container mx-auto p-5" >
             <p className="text-5xl text-center">Software Engineer using <b className="underline decoration-pink-500">PHP</b> and <b className="underline decoration-pink-500">GO</b>.</p>
               <p className="mt-10 w-2/3 mx-auto text-center">
                 I’m Diar, an software-engineer based in Berlin. I like to create software using different architectural patterns.<br/>
