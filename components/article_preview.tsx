@@ -17,7 +17,7 @@ function ArticlePreview(props) {
                         ))}
                     </p>
                     <p>
-                        <a href={"/posts/"+slug} className="text-pink-500 hover:text-pink-900">Read more &rarr;</a>
+                        <a href={"/blog/"+slug} className="text-pink-500 hover:text-pink-900">Read more &rarr;</a>
                     </p>
                 </div>
             </div>

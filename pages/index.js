@@ -1,6 +1,7 @@
 import ArticlePreview from "../components/article_preview";
 import fs from 'fs';
 import matter from "gray-matter";
+import ReactMarkdown from 'react-markdown';
 
 export default function Home(props) {
     const {posts} = props;
