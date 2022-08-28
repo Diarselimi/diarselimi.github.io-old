@@ -2,14 +2,11 @@
 export default function Toc(props) {
     const {title} = props
     return (
-        <div className="fixed ml-10 w-1/4 max-h-full bg-slate-100 rounded-xl p-2 dark:bg-slate-800">
-            <div className="p-5">
-                <b>{title}</b>
-                <hr />
-                <ul>
-                    <li>The main content</li>
-                    <li>One morning</li>
-                </ul>
+        <div className="fixed bg-cyan-100 left-10 top-1/2 p-10 grid grid-cols-1 place-items-center">
+            <div className="table-of-contents p-5">
+                <ol>
+                    <li>asd</li>
+                </ol>
             </div>
         </div>
     )

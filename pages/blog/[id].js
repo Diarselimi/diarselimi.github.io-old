@@ -4,6 +4,7 @@ import hljs from 'highlight.js';
 import Navigation from "../../components/navigation";
 import 'highlight.js/styles/atom-one-dark.css'
 import anchor from "markdown-it-anchor";
+import Toc from "../../components/toc";
 
 export default function Blog({ frontmatter ,content}) {
     const md = require('markdown-it')({
@@ -23,15 +24,15 @@ export default function Blog({ frontmatter ,content}) {
             space: true,
         })
     });
+
+    md.use(require('markdown-it-table-of-contents'));
     return (
         <>
         <Navigation />
-
-        <div className="md:container md:mx-auto">
+        <div className="container mx-auto p-4">
             <div className="w-100">
-                <div className="prose mx-auto">
-                    <h1 className="text-4xl">{frontmatter.title}</h1>
-                    <hr />
+                <div className="prose lg:prose-xl mx-auto">
+                    <h1 className="text-3xl">{frontmatter.title}</h1>
                     <div dangerouslySetInnerHTML={{ __html: md.render(content) }}></div>
                 </div>
             </div>
