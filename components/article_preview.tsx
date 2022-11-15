@@ -5,7 +5,7 @@ function ArticlePreview(props) {
         <div className="px-5 m-5 pt-10 pb-5 shadow-lg ring-1 ring-gray-300 rounded-lg">
             <div className="mx-auto">
                 <div className="tex-base font-semibold">
-                    <p className="text-gray-900">{post.data.title}</p>
+                    <a href={"/blog/"+slug} className="text-gray-900">{post.data.title}</a>
                 </div>
                 <div className="space-y-6 py-8 text-base leading-7 text-gray-600">
                     <p>{post.data.description}</p>

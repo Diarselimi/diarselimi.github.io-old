@@ -8,13 +8,9 @@ export default function Home(props) {
     return (
         <>
           <div className="mt-20 container mx-auto p-5" >
-            <p className="text-5xl text-center">Self motivated Software Engineer in <b className="underline decoration-pink-500">PHP</b> and <b className="underline decoration-pink-500">GO</b>.</p>
+            <p className="text-5xl text-center">Self motivated Backend Engineer in <b className="underline decoration-pink-500">PHP</b> and <b className="underline decoration-pink-500">GO</b>.</p>
               <p className="mt-10 w-2/3 mx-auto text-center">
-                  Working on interesting projects, which I will be writing in my blog posts.
-                  Projects will be developed mainly with <a className="underline decoration-sky-500">GO</a> or <a className="underline decoration-sky-500">PHP</a>.
-                  <br/>
-                  I will be talking about both languages, the differences and the benefits of each. <br/>
-                  Articles will be linked by tags, so tags here act as bundles, just click one that interests you.
+                  I have worked with veraiety of different companies, and I have had experiences on some really interesting applications.
               </p>
           </div>
           <div className="md:container md:mx-auto">
