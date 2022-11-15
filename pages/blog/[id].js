@@ -4,7 +4,6 @@ import hljs from 'highlight.js';
 import Navigation from "../../components/navigation";
 import 'highlight.js/styles/atom-one-dark.css'
 import anchor from "markdown-it-anchor";
-import Toc from "../../components/toc";
 
 export default function Blog({ frontmatter ,content}) {
     const md = require('markdown-it')({
@@ -20,7 +19,7 @@ export default function Blog({ frontmatter ,content}) {
     });
     md.use(anchor, {
         permalink: anchor.permalink.linkInsideHeader({
-            placement: 'after',
+            placement: 'before',
             space: true,
         })
     });
