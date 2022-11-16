@@ -1,9 +1,7 @@
 import fs from 'fs';
 import matter from "gray-matter";
 
-export default function Tags(props) {
-    console.log(props);
-    const {tags} = props
+export default function Tags({tags}) {
 
     return (
         <div className="container">
