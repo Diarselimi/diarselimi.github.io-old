@@ -21,14 +21,15 @@ export async function getStaticProps() {
     const files = fs.readdirSync("posts");
 
     const tags = [];
-    tags.concat(files.map((file) => {
+    for (var i=0; i<files.length; i++) {
+        var file = files[i];
         const slug = file.replace(".md", "");
         const content = fs.readFileSync(`posts/${file}`, "utf-8");
         const parsedContent = matter(content);
-
         console.log(parsedContent);
-        return parsedContent.tags;
-    }));
+
+        tags.concat(parsedContent.tags);
+    }
 
     return {
         props: {
