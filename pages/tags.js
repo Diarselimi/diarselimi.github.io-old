@@ -2,7 +2,9 @@ import fs from 'fs';
 import matter from "gray-matter";
 
 export default function Tags(props) {
+    console.log(props);
     const {tags} = props
+
     return (
         <div className="container">
             <h3> Tags </h3>
@@ -19,13 +21,14 @@ export async function getStaticProps() {
     const files = fs.readdirSync("posts");
 
     const tags = [];
-    const posts = files.map((file) => {
+    tags.concat(files.map((file) => {
         const slug = file.replace(".md", "");
         const content = fs.readFileSync(`posts/${file}`, "utf-8");
         const parsedContent = matter(content);
 
-        tags.concat(parsedContent.tags)
-    });
+        console.log(parsedContent);
+        return parsedContent.tags;
+    }));
 
     return {
         props: {
