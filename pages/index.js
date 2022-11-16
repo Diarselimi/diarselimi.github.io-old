@@ -13,8 +13,8 @@ export default function Home(props) {
                   I have worked with veraiety of different companies, and I have had experiences on some really interesting applications.
               </p>
           </div>
-          <div className="md:container md:mx-auto">
-            <div className="p-5 flex flex-wrap pt-12">
+          <div className="columns-2 md:columns-3">
+            <div className="p-5 w-full pt-12">
                 {posts.map((post, index) => (
                     <ArticlePreview post={post} slug={post.slug} key={post.key} />
                 ))}
