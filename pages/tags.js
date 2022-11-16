@@ -16,30 +16,10 @@ export default function Tags({tags}) {
 }
 
 export async function getStaticProps() {
-    const files = fs.readdirSync("posts");
-
-    const posts = files.map((file, key) => {
-        const slug = file.replace(".md", "");
-        const content = fs.readFileSync(`posts/${file}`, "utf-8");
-        const parsedContent = matter(content);
-
-        const {data} = parsedContent;
-        console.log(data);
-        return {
-            key,
-            slug,
-            data
-        }
-    });
-
-    const tags = [];
-    posts.map((post, key) => {
-        tags.concat(post.data.tags);
-    });
 
     return {
         props: {
-            tags
+            tags : ["go", "php", "learning", "mutex"]
         }
     }
 }
