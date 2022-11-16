@@ -7,15 +7,28 @@ export default function Tags({posts}) {
     return (
         <div className="container">
             <h3> Tags </h3>
+            <div class="container mx-auto px-4">
             {posts.map((post) => (
                     post.data.tags.map((tag, index) => (
-                        <div key={tag} >
-                            <a href={tag} >#{tag}</a>
-                        </div>
+                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                        #{tag}
+                    </button>
                     ))
             ))}
+            </div>
+           <div className="w-2/5 xs:w-full">
+             <div className="p-5 w-full pt-12">
+                 {filterPostsByTag(posts, '').map((post, index) => (
+                    <ArticlePreview post={post} slug={post.slug} key={post.key} />
+                ))}
+            </div>
+           </div>
         </div>
     )
+}
+
+function filterPostsByTag(posts, tag) {
+    return posts.filter(post => post.data.tags.includes(tag));
 }
 
 export async function getStaticProps() {
