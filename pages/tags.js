@@ -4,7 +4,9 @@ export default function Tags(props) {
     return (
         <div className="container">
             {tags.map((tag, index) => (
-                    <a href={tag} >#{tag}</a>
+                    <div key={tag} >
+                        <a href={tag} >#{tag}</a>
+                    </div>
                     ))}
         </div>
     )
@@ -14,7 +16,7 @@ export async function getStaticProps() {
     const files = fs.readdirSync("posts");
 
     const tags = [];
-    const posts = files.map((file, key) => {
+    const posts = files.map((file) => {
         const slug = file.replace(".md", "");
         const content = fs.readFileSync(`posts/${file}`, "utf-8");
         const parsedContent = matter(content);
