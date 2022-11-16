@@ -3,7 +3,7 @@ export default function Tags(props) {
     const {tags} = props
     return (
         <div className="container">
-            {tags.map((tag) => (
+            {tags.map((tag, index) => (
                     <a href={tag} >#{tag}</a>
                     ))}
         </div>
