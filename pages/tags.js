@@ -5,6 +5,7 @@ export default function Tags(props) {
     const {tags} = props
     return (
         <div className="container">
+            <h3> Tags </h3>
             {tags.map((tag, index) => (
                     <div key={tag} >
                         <a href={tag} >#{tag}</a>
