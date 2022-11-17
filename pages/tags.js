@@ -7,7 +7,7 @@ export default function Tags({posts}) {
     return (
         <div className="container">
             <h3> Tags </h3>
-            <div class="container mx-auto px-4">
+            <div className="container mx-auto px-4">
             {posts.map((post) => (
                     post.data.tags.map((tag, index) => (
                     <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
