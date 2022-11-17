@@ -9,23 +9,31 @@ tags:
 ---
 
 ### What will I learn?
-I will be able to understand what is Mutex and able to use it in any project,
-without any fear of someone shaming me that I don't know what I am doing.
+I will be able to understand what is a Mutex,
+and how it works in concurrent processes.
+I will apply a mutex on a real-world project to see how we can benefit from it.
 
-### So what is a Mutex?
-Mutex is a library which works on locking structs to not be accessible from other concurrent processes.
-The following picture has a nice diagram, there are two processes trying to do the same thing.
+
+### What is a Mutex?
+Mutex is a library which works on locking methods to not be accessible from other concurrent processes,
+until the mutex says that it's open.
+Think of a mutex as the traffic police, and when the police blocks a road thats a `Lock()`, no car will pass until the Police opens `Unlock()` the road.
+[!](https://kanbanzone.com/wp-content/uploads/2020/01/blocked-road.jpg)
+
 
 ### How does it work?
 As I would read in the [Go docs](https://pkg.go.dev/sync#Mutex) a Mutex must not be copied,
-if I call the `Lock()` method then the mutex is locked and any other lock call will be waiting for it to unlock.
+if I call the `Lock()` method then the mutex is locked and any other lock call will be waiting for it to be `Unlock()`-ed.
 If I call the `Unlock()` method then the mutex will unblock itself and tell the lock method that `Mutex` is open.
-Every time I copy a mutex then the state is unlocked.
+Every time I copy a mutex then the state is unlocked, meaning it will have no effect.
 
-### How do I apply it on a project?
+
 > Before I describe how to apply on a project, try to set up [this project](https://github.com/Diarselimi/giftem#readme) in your maching, and see how it works.
 
-This is a project that I was working on, it's about assigning gifs to employees, and each employee has to have one gift, first come first serve.
+### How do I apply it on a project?
+
+This is a project that I was working on, it's about assigning gifs to employees, and each employee has to have one gift,
+first come first serve.
 I have employees and gifts in two json files and they look like this:
 ```json
 //gifts json
@@ -50,7 +58,9 @@ I have employees and gifts in two json files and they look like this:
     }
 ]
 ```
-As beautiful as this looks we have to move on, next you  will see the project structure [in github](https://github.com/Diarselimi/giftem).
+As beautiful as this looks I have to move on.
+
+Next you will see the project structure [in github](https://github.com/Diarselimi/giftem).
 The main.go file has the following content
 ```go
 ///...
@@ -62,7 +72,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "Employee with id %s not found", r.URL.Path[1:])
         return
     }
-    mediator := application.CommandMediator{Mu: &mutex} //here we pass the mutex by address
+    mediator := application.CommandMediator{Mu: &mutex} //here we pass the mutex by reference
     mediator.Add(command.NewAssignGiftToEmployeeCommand(employeeId))
 
     mediator.Run()
@@ -74,7 +84,8 @@ func main() {
 }
 ```
 
-If I go ahead and open CommandMediator I will see that I use the mutex there to `lock` and `defer Unlock()`,
+If I go ahead and open `CommandMediator` I will see that I use the mutex there to `Lock()` and `defer Unlock()`,
+and `defer` is like saying execute this when you are done.
 ```go
 type CommandMediator struct {
     Mu       *sync.Mutex // important
@@ -86,15 +97,31 @@ func (cm *CommandMediator) Run() {
     defer cm.Mu.Unlock() //unlocking when job is done
 
     for _, command := range cm.commands {
-        command.Execute()
+        command.Execute() // executing the commands
     }
 }
 
 ```
 As I can see in the method `Run()` above, I am calling the mutex that is being passed from main file, and then locking it.
-This is because when another request comes it will be the same mutex being passed to that request.
-As a result the next mutex will not be able tu acquaire the lock since it's already been locked.
-The important part in the CommandMediator is this `Mu *sync.Mutex`, this means that we want a mutex passed by reference and not just a copy.
+So that means that the mutex that I am getting it's the same mutex that every one else is getting when doing the request.
+
+So that makes sense, since we are pasing mutex by reference and other people have the same instance of it,
+someone might be faster than me in locking it then I must wait for the `Unlock()`.
+
+### How long do I have to wait for my request?
+Turns out it all depends on how your project is organised, in my small project I have blocked the whole command,
+meaning no one can execute the command until you are done with it.
+
+To make the change more obvious I have added a `time.Sleep(5 * time.Second)` which will sleep for 5 seconds,
+this is for me to try to simulate two request at the same time.
+So every time I run the command it will be blocked for 5 seconds.
+
+### How do I see the effect?
+Since I have the project in my machine, I can open two terminal windows and execute this command in both of them,
+`curl http://localhost:8080/1` this will try to assign a gift to employee 1,
+you will see that one of the responses will wait until the other one is done.
+
+
 
 
 
