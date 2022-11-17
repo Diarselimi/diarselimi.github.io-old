@@ -1,5 +1,5 @@
 ---
-title: Using Mutex in GO on a real world project.
+title: Using Mutex in GO on a real-world project.
 description: You will learn how the mutex library helps you prevent some of the issues in concurrent world.
 created_at: 2022-11-14T23:13:2300
 tags:
@@ -15,10 +15,10 @@ I will apply a mutex on a real-world project to see how we can benefit from it.
 
 
 ### What is a Mutex?
-Mutex is a library which works on locking methods to not be accessible from other concurrent processes,
+Mutex is a library that works on locking methods to not be accessible from other concurrent processes
 until the mutex says that it's open.
-Think of a mutex as the traffic police, and when the police blocks a road thats a `Lock()`, no car will pass until the Police opens `Unlock()` the road.
-[!](https://kanbanzone.com/wp-content/uploads/2020/01/blocked-road.jpg)
+Think of a mutex as the traffic police, and when the police block a road that's a `Lock()`, no car will pass until the Police open `Unlock()` the road.
+![Road block](https://kanbanzone.com/wp-content/uploads/2020/01/blocked-road.jpg)
 
 
 ### How does it work?
@@ -45,6 +45,7 @@ I have employees and gifts in two json files and they look like this:
         "categories": ["power lifting", "triathlons", "football", "crossfit", "handball", "running"]
     }
 ]
+...
 
 //employees json
 [{
@@ -57,11 +58,12 @@ I have employees and gifts in two json files and they look like this:
         "interests": ["pets", "scifi", "music making"]
     }
 ]
+...
 ```
-As beautiful as this looks I have to move on.
+The examples are just one object in the array but if you look at the files there are more data.
 
 Next you will see the project structure [in github](https://github.com/Diarselimi/giftem).
-The main.go file has the following content
+The **main.go** file has the following content
 ```go
 ///...
 var mutex = sync.Mutex{} //here we initialise Mutex, keep in mind this is outside of the methods.
@@ -97,30 +99,41 @@ func (cm *CommandMediator) Run() {
     defer cm.Mu.Unlock() //unlocking when job is done
 
     for _, command := range cm.commands {
-        command.Execute() // executing the commands
+        command.Execute() // executing the command
     }
 }
 
 ```
-As I can see in the method `Run()` above, I am calling the mutex that is being passed from main file, and then locking it.
-So that means that the mutex that I am getting it's the same mutex that every one else is getting when doing the request.
-
-So that makes sense, since we are pasing mutex by reference and other people have the same instance of it,
+As I can see in the method `Run()` above, I am calling the mutex that is being passed from the main file, and then locking it.
+So that means that the mutex that I am getting it's the same mutex that everyone else is getting when sending a request.
+So that makes sense since we are passing mutex by reference and other people have the same instance of it,
 someone might be faster than me in locking it then I must wait for the `Unlock()`.
 
 ### How long do I have to wait for my request?
-Turns out it all depends on how your project is organised, in my small project I have blocked the whole command,
-meaning no one can execute the command until you are done with it.
+Turns out it all depends on how your project is organized, in my small project I have blocked the mediator where the commands are executed,
+meaning no one can execute the `Run()` until the first process is done.
+
+```go
+func (cm *CommandMediator) Run() {
+    cm.Mu.Lock()
+    defer cm.Mu.Unlock()
+
+    for _, command := range cm.commands {
+        command.Execute()
+    }
+}
+```
 
 To make the change more obvious I have added a `time.Sleep(5 * time.Second)` which will sleep for 5 seconds,
-this is for me to try to simulate two request at the same time.
+this is for me to try to simulate two requests at the same time.
 So every time I run the command it will be blocked for 5 seconds.
 
 ### How do I see the effect?
-Since I have the project in my machine, I can open two terminal windows and execute this command in both of them,
-`curl http://localhost:8080/1` this will try to assign a gift to employee 1,
-you will see that one of the responses will wait until the other one is done.
+Since I have the project on my machine, I can open a terminal and run the application by executing `go run main.go`,
+next step would be to open the following link twice [http://localhost:8080/1](http://localhost:8080/1),
+one will show you the gift one will show it after 5 seconds.
 
+As a challenge I could try to disable the mutex in the mediator and see what happens when I click the link above twice or even more.
 
 
 
