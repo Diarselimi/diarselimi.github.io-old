@@ -1,5 +1,5 @@
 ---
-title: Using Mutex in GO on a real-world project.
+title: Using Mutex with GO on a real-world project.
 description: You will learn how the mutex library helps you prevent some of the issues in concurrent world.
 created_at: 2022-11-14T23:13:2300
 tags:
