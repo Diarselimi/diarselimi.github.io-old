@@ -1,6 +1,7 @@
 import fs from 'fs';
 import matter from "gray-matter";
 import ReactMarkdown from 'react-markdown';
+import ArticlePreview from "../components/article_preview";
 
 export default function Tags({posts}) {
 
