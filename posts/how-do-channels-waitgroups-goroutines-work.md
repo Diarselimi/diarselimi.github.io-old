@@ -10,16 +10,16 @@ tags:
     - gobasics
 ---
 
-### What am I going to learn?
-I will learn about Goroutines, how they help us run code concurrently.
-I will learn how channels help us pass data from goroutines back to the main process.
-I will learn how waitgroups help wait and notifies when goroutines are done with their work.
-All these together help you achieve concurrent data handling, and processing.
+### What are you going to learn?
+You will learn about Goroutines, and how they help us run code concurrently.
+You will learn how channels help us pass data from goroutines back to the main process.
+You will learn how waitgroups help wait and notify when goroutines are done with their work.
+All these together help you achieve concurrent data handling and processing.
 You will also learn about new problems that concurrent processing brings if you are coming from languages like PHP.
 
 
 ### What are goroutines
-Goroutines became famous especially for PHP developers, since they could not run code concurrently so easily, this was something I usually ran away from.
+Goroutines became famous especially for PHP developers since they could not run code concurrently so easily, this was something I usually ran away from.
 But when you start to learn GO, the first thing you learn is how to run a goroutine.
 To run one goroutine you just need to say **GO** and then you give the method name to run.
 ```go
@@ -33,7 +33,7 @@ printBye() //prints Bye
 //Bye
 //Sleeping
 ```
-Here you will see a visualisation of the process when executing with goroutines.
+Here you will see a visualization of the process when executing with goroutines.
 [!](../assets/img/concurrent_demonstration.gif)
 
 
@@ -45,8 +45,8 @@ You can send any type of data into channels.
 
 ### What are waitgroups?
 Waitgroups are processes where you can make a method to wait for x amount of time.
-If I check the [docs about Waitgroups](https://pkg.go.dev/sync#WaitGroup) I will see that it is part of sync library [which we used before with mutexes](https://diarselimi.github.io/blog/how-does-the-mutex-work-in-GO).
-Waitgroups are really helpfull when you are working with goroutines, they help you to wait for the job to be done.
+If I check the [docs about Waitgroups](https://pkg.go.dev/sync#WaitGroup) I will see that it is part of the sync library [which we used before with mutexes](https://diarselimi.github.io/blog/how-does-the-mutex-work-in-GO).
+Waitgroups are really helpful when you are working with goroutines, they help you to wait for the job to be done.
 
 
 ### Do you have an example?
@@ -58,10 +58,10 @@ You can run `go run main.go` and I will see the results in the following link [h
 ### What kind of problems does it solve?
 This solves the problem when you want to process data concurrently and not wait for one method to be done.
 Basically, it solves the concurrency problem, with these three features combined you can do a lot of concurrent processing.
-If you look into the project code you will see that we execute code concurrently and at the end we print the results.
+If you look into the project code you will see that we execute code concurrently and at the end, we print the results.
 
 
 ### Time comparison
-This is a comparison in seconds for concurrent and non concurrent processing.
+This is a comparison in seconds for concurrent and non-concurrent processing.
 Time to finish with concurrency: 1.119483875± seconds
 Time to finish without concurrency: 1.750224417± seconds
